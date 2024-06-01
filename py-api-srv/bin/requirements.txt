@@ -1,0 +1,10 @@
+# for api
+flask
+
+# so we don't get cross domain security problems
+flask-cors
+
+# for data
+Flask-SQLAlchemy
+pymysql
+py2neo
