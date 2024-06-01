@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  py-web-crawler-delta:
+    build: py-web-crawler/current-historical
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-prod:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-prod:py-srv-prod"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/current-historical/bin:/home/developer/Downloads
+    profiles:
+      - prod

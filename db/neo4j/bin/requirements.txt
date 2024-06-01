@@ -1,0 +1,11 @@
+# neo4j database driver
+py2neo
+
+# mysql database driver
+pymysql
+
+# sql orm
+sqlmodel
+
+# time series
+prophet

@@ -1,0 +1,5 @@
+# for api call
+requests
+
+# for automated downloads
+selenium

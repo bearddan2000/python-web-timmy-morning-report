@@ -1,0 +1,111 @@
+version: "3.7"
+
+services:
+  redis:
+    image: redislabs/rejson:latest # redis for json
+    healthcheck:
+      test: pwd || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    profiles:
+      - dev
+      - test
+      - prod
+      - nightly-batch
+
+  nginx-app:
+    build: nginx/app
+    healthcheck:
+      test: curl --fail http://localhost:80 || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    # Bind the port 80 of container to machine port 80
+    ports:
+      - 80:80
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+        restart: true
+    profiles:
+      - nightly-batch
+
+
+  py-api-srv:
+    build: py-api-srv
+    command: python3 app.py
+    environment:
+      - NEO4J_AUTH=$NEO4J_AUTH
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+    healthcheck:
+      test: curl --fail http://localhost:5000 || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    ports:
+      - "81:5000"
+    profiles:
+      - db-dev
+      - dev
+      - test
+      - prod
+      - nightly-batch
+
+  py-srv-batch:
+    image: timmy-main-srv
+    command: python3 app.py
+    healthcheck:
+      test: curl --fail http://localhost:5000 || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    ports:
+      - 5000
+    deploy:
+      replicas: 20
+    depends_on:
+      py-api-srv:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_healthy
+        restart: true
+    volumes:
+      - ./py-srv/bin:/code
+    profiles:
+      - nightly-batch
+
+  py-srv-prod:
+    image: timmy-main-srv
+    command: python3 app.py
+    healthcheck:
+      test: curl --fail http://localhost:5000 || exit 1
+      interval: 10s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    ports:
+      - 80:5000
+    depends_on:
+      py-api-srv:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_healthy
+        restart: true
+    volumes:
+      - ./py-srv/bin:/code
+    profiles:
+      - dev
+      - test
+      - prod

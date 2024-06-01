@@ -1,0 +1,233 @@
+version: "3.7"
+
+services:
+
+  py-web-crawler-beta:
+    build: py-web-crawler/relations
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/relations/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-delta:
+    build: py-web-crawler/current-historical
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-prod:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-prod:py-srv-prod"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/current-historical/bin:/home/developer/Downloads
+    profiles:
+      - prod
+      
+  py-web-crawler-epsilon:
+    build: py-web-crawler/types
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/types/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+     
+  py-web-crawler-gamma:
+    build: py-web-crawler/regression
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/regression/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+     
+  py-web-crawler-iota:
+    build: py-web-crawler/distribution
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/distribution/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-kappa:
+    build: py-web-crawler/ml
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/ml/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-lambda:
+    build: py-web-crawler/compare-self
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-self/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-week:
+    build: py-web-crawler/compare-other-week
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-week/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-weekday:
+    build: py-web-crawler/compare-other-weekday
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-weekday/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-month:
+    build: py-web-crawler/compare-other-month
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-month/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-month-weekday:
+    build: py-web-crawler/compare-other-month-weekday
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-month-weekday/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-quarter:
+    build: py-web-crawler/compare-other-quarter
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-quarter/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-other-quarter-weekday:
+    build: py-web-crawler/compare-other-quarter-weekday
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+      #py-web-crawler-other-quarter:
+      #  condition: service_completed_successfully
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/compare-other-quarter-weekday/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+
+#  smtp-server:
+#    image: python:3.8
+#    command: python3 -m smtpd -c DebuggingServer -n localhost:1025
+#    ports:
+#      - 1025

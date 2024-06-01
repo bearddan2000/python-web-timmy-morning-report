@@ -1,0 +1,138 @@
+version: "3.7"
+
+services:
+  py-web-crawler-stats:
+    build: py-web-crawler/stats
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-trends:
+    build: py-web-crawler/stats-trends
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-notes:
+    build: py-web-crawler/stats-notes
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-distribution:
+    build: py-web-crawler/stats-distribution
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-datatable:
+    build: py-web-crawler/stats-datatable
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-correlation:
+    build: py-web-crawler/stats-correlation
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-self:
+    build: py-web-crawler/stats-self
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch
+
+  py-web-crawler-stats-other:
+    build: py-web-crawler/stats-other
+    command: python3 /home/developer/app.py
+    depends_on:
+      py-srv-batch:
+        condition: service_healthy
+    environment:
+      - DISPLAY=:0
+    links:
+      - "py-srv-batch:py-srv-batch"
+      - "py-api-srv:py-api-srv"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./merge-pdf/stats/bin:/home/developer/Downloads
+    profiles:
+      - nightly-batch

@@ -1,0 +1,4 @@
+CREATE DATABASE `feature`;
+CREATE DATABASE `week`;
+CREATE DATABASE `legend`;
+CREATE DATABASE `timmy`;
